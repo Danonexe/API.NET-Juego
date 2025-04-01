@@ -57,7 +57,8 @@ namespace TodoApi.Controllers
                 var update = Builders<Estadisticas>.Update
                     .Set(e => e.Nick, estadisticas.Nick)
                     .Set(e => e.Score, estadisticas.Score)
-                    .Set(e => e.Time, estadisticas.Time);
+                    .Set(e => e.Time, estadisticas.Time)
+                    .Set(e => e.Date, estadisticas.Date);
 
                 var result = await _context.Estadisticas.UpdateOneAsync(filter, update);
 
@@ -87,6 +88,12 @@ namespace TodoApi.Controllers
         {
             // Asegúrate de que el id sea nulo para que MongoDB genere uno
             estadisticas.Id = null;
+            
+            // Establece la fecha actual si no se proporciona
+            if (estadisticas.Date == DateTime.MinValue)
+            {
+                estadisticas.Date = DateTime.UtcNow;
+            }
             
             await _context.Estadisticas.InsertOneAsync(estadisticas);
 
