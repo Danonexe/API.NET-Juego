@@ -1,6 +1,5 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
 
 namespace TodoApi.Models
 {
@@ -17,11 +16,9 @@ namespace TodoApi.Models
         public int Score { get; set; }
 
         [BsonElement("time")]
-        [BsonRepresentation(BsonType.String)]
-        public TimeSpan Time { get; set; }
+        public string Time { get; set; }
 
         [BsonElement("date")]
-        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }

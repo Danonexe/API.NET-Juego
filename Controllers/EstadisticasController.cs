@@ -89,10 +89,10 @@ namespace TodoApi.Controllers
             // Asegúrate de que el id sea nulo para que MongoDB genere uno
             estadisticas.Id = null;
             
-            // Establece la fecha actual si no se proporciona
-            if (estadisticas.Date == DateTime.MinValue)
+            // Si no se proporciona una fecha, asignar la fecha actual
+            if (string.IsNullOrEmpty(estadisticas.Date))
             {
-                estadisticas.Date = DateTime.UtcNow;
+                estadisticas.Date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             }
             
             await _context.Estadisticas.InsertOneAsync(estadisticas);
